@@ -6,7 +6,6 @@ import threading
 import sys
 import os
 from select import select
-import ast
 sys.path.append('../Classes')
 from things import Things
 
@@ -28,7 +27,6 @@ def _start_zeromq_pub():
 
 
 def _initial_set(_instructions, _set):
-    print(_instructions)
     for x in _instructions:
         _set[str(_instructions[x]['action'])](
             str(_instructions[x]['msg']), str(_instructions[x]['type']))
@@ -62,7 +60,6 @@ def _zeromq_sub_thread():
     while _exit is False:
         try:
             [_address, _contents] = _zero_sub.recv_multipart()
-            print('[%s] %s' % (_address, _contents))
         except:
             if _kbhit():
                 _msg = raw_input('>')
@@ -93,17 +90,15 @@ def _missing_data(_req_json, _msg_exception):
 
 
 def _do_actions(_instructions):
-    try:
-        _instructions = ast.literal_eval(_instructions)
-    except:
-        pass
+    global _error_key
     x = 0
     while len(_instructions) > x:
         try:
             _actions[_instructions[x]['action']](_instructions[x + 1],
                                                  _instructions[x])
-        except Exception, e:
-            print(e)
+        except:
+            _error_key = 'instruction'
+            abort(400)
         x += 2
 
 # ############################################################
@@ -129,6 +124,7 @@ _actions = {
 }
 _error_msg = {
     'duplicate': 'That thing already exist',
+    'instruction': "The 'Thing' can't perform that action ",
     '400ReqJson': 'No Json',
     '400' + IDENTIFIER: IDENTIFIER + ' missing',
     '400' + JSONID: JSONID + ' missing',
@@ -200,9 +196,9 @@ def get_things(_key):
 @app.route('/' + UNAME + '/find/<string:_type>/things', methods=['GET'])
 def find_things(_type):
     if request.json:
-        print(request.json)
         _reply = _things.find(_type, request.json)
     else:
+        print("TYUYYYYPE:"+str(_type))
         _reply = _things.find(_type)
     return jsonify({'Things': _reply})
 
@@ -250,6 +246,7 @@ def update_task():
     if not _reply[0]:
         _error_key = _reply[1]
         abort(_reply[2])
+    print("REPPPPPPLY:"+str(_reply))
     _do_actions(_reply)
     return jsonify({'Thing': 'Modified'}), 202
 
@@ -271,7 +268,6 @@ def delete_thing():
     if not _reply[0]:
         _error_key = _reply[1]
         abort(_reply[2])
-    _reply = ast.literal_eval(_reply)
     if SETDOWNID in _reply:
         _initial_set(_reply[SETDOWNID], _setdown_inst)
     return jsonify({'Thing': 'Deleted'}), 201

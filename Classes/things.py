@@ -50,11 +50,6 @@ class Things:
         _col_connected_things = []
         _connected_things = self.search_db()
 
-        try:
-            _connected_things = ast.literal_eval(_connected_things)
-        except:
-            pass
-
         for _things in range(len(_connected_things)):
             _col_connected_things.append({
                 self.IDENTIFIER: _connected_things[_things][
@@ -105,6 +100,12 @@ class Things:
         self._stop_db_connection()
 
         _columns = _columns[:-1]
+        try:
+            _columns = ast.literal_eval(_columns)
+        except:
+            pass
+        if 'tuple' not in str(type(_columns)) and _columns:
+            _columns = _columns,
         return _columns
 
     # ########################## Add new thing ###################
@@ -179,7 +180,7 @@ class Things:
         if not _target_thing:
             _msg = (False, None, 404)
         else:
-            _target_thing = ast.literal_eval(_target_thing)
+            _target_thing = _target_thing[0] # ast.literal_eval(_target_thing)
             _json_thing = _target_thing[1].copy()
             _metajson_thing = _target_thing[2]
             _msg = self._change_managment(mod_thing[self.JSONID], '',
@@ -194,7 +195,7 @@ class Things:
 
         _target_thing = self.search_db(_col_name, _inst_dir, 'all')
         if _target_thing:
-            _target_thing = ast.literal_eval(_target_thing)
+            _target_thing = _target_thing[0]
             _json_thing = _target_thing[1].copy()
             _metajson_thing = _target_thing[2][_inst_dir]
             _msg = self._thing_actions(_metajson_thing, _inst_msg, _json_thing,
@@ -288,35 +289,33 @@ class Things:
 
     # ###################### Find specific things #####################
 
-    def find(self, _target_type, _target_filter=None):
+    def find(self, _target_type, _target_filter={}):
         _final_things = ()
         _things_found = self.search_db(self.DB_COLUMN[self.METAJSONID], 'show',
                                        'all')
         try:
-            _things_found = ast.literal_eval(_things_found)
             for _thing in range(len(_things_found)):
                 _found = _things_found[_thing][self.DB_COLUMN_NUM
                                                [self.METAJSONID]]['show']
                 _identifier = _things_found[_thing][self.DB_COLUMN_NUM
                                                     [self.IDENTIFIER]]
-                if _target_filter:
-                    _found = self._apply_filter(_found, _target_filter)
+                _target_filter.update({u'type': _target_type})
+                _found = self._apply_filter(_found, _target_filter)
                 if _found:
                     _final_things = _final_things + (
                         {self.IDENTIFIER: _identifier, 'found':
                          _found},)
-        except Exception, e:
-            print(e)
+        except:
             _final_things = ()
         if not _final_things:
-            _final_things = 'Not Found'
+            _final_things = 'Not found'
         return _final_things
     # ###################### Filter the Things Found  ##################
 
     def _apply_filter(self, _found, _target_filter):
         _filtered = []
         for _action in range(len(_found)):
-            if filter(lambda _filter: _target_filter[_filter] in _found[
-                    _action][_filter], _target_filter):
+            if len(filter(lambda _filter: _target_filter[_filter] in _found[
+                    _action][_filter], _target_filter)) is len(_target_filter):
                 _filtered.append(_found[_action])
         return _filtered
