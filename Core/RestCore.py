@@ -123,13 +123,15 @@ _actions = {
     'pass': lambda x, y: x
 }
 _error_msg = {
+    'modifyRepeat': 'Thing already have that value',
+    'notDir': 'Thing value can\'t be modified or doesn\'t have that atrribute',
     'duplicate': 'That thing already exist',
-    'instruction': "The 'Thing' can't perform that action ",
+    'instruction': 'The \'Thing\' can\'t perform that action ',
     '400ReqJson': 'No Json',
     '400' + IDENTIFIER: IDENTIFIER + ' missing',
     '400' + JSONID: JSONID + ' missing',
     '400' + METAJSONID: METAJSONID + ' missing',
-    'name': 'Name missing',
+    'name': 'name missing',
     'badtype': IDENTIFIER + ' must be a integer, ' + JSONID + ' and ' +
                             METAJSONID + ' must be dictionaries'
 }
@@ -198,7 +200,6 @@ def find_things(_type):
     if request.json:
         _reply = _things.find(_type, request.json)
     else:
-        print("TYUYYYYPE:"+str(_type))
         _reply = _things.find(_type)
     return jsonify({'Things': _reply})
 
@@ -246,7 +247,6 @@ def update_task():
     if not _reply[0]:
         _error_key = _reply[1]
         abort(_reply[2])
-    print("REPPPPPPLY:"+str(_reply))
     _do_actions(_reply)
     return jsonify({'Thing': 'Modified'}), 202
 

@@ -2,6 +2,7 @@ import pytest
 import sys
 import json
 import random
+import zmq
 sys.path.append('../Core')
 import RestCore
 
@@ -14,7 +15,13 @@ COLUMNS = [{'msg': {JSONID: {'name': ''}, METAJSONID: {'/name': ''}},
             'reply': 'mac'},
            {'msg': {IDENTIFIER: 0, METAJSONID: {'/name': ''}},
             'reply': 'json'},
-           {'msg': {IDENTIFIER: 0, JSONID: {'name': ''}}, 'reply': 'metajson'}]
+           {'msg': {IDENTIFIER: 0, JSONID: {'name': ''}},
+            'reply': 'metajson'},
+           {'msg': {IDENTIFIER: 0, JSONID: {}, METAJSONID: {}},
+            'reply': 'name'}]
+
+_zero_sub = None
+_contex = None
 
 
 @pytest.fixture
@@ -22,6 +29,26 @@ def client(request):
     RestCore.app.config['TESTING'] = True
     client = RestCore.app.test_client()
     return client
+
+# ############# MODIFICAR PARA HACERLO MAS FLEXIBLE #############
+# ################################################################
+
+
+def _start_zeromq_client():
+    global _zero_sub, _context
+    _context = zmq.Context()
+
+    _zero_sub = _context.socket(zmq.SUB)
+    _zero_sub.connect("tcp://localhost:5561")
+
+
+def _port_subscriptions(port):
+    global _zero_sub
+    _zero_sub.setsockopt(zmq.SUBSCRIBE, port + "Pub")
+    _zero_sub.setsockopt(zmq.SUBSCRIBE, port + "Sub")
+    _zero_sub.setsockopt(zmq.SUBSCRIBE, port + "Unsub")
+    _zero_sub.setsockopt(zmq.RCVTIMEO, 1000)
+
 
 # ############### Test get_things with out any thing ####################
 
@@ -47,12 +74,30 @@ def test_add_thing_bad_request(client):
     assert COLUMNS[_column]['reply'] in response.data
 
 
-def test_add_minimal_thing_(client):
+def test_add_minimal_thing(client):
     data = json.dumps({'mac': 88, 'json': {'name': ''},
                        'metajson': {'/name': ''}})
     response = client.post('/' + UNAME + '/thing',
                            data=data, headers=HEADERS)
     assert 'New' in response.data
+
+
+def test_add_duplicated_thing(client):
+    data = json.dumps({'mac': 88, 'json': {'name': ''},
+                       'metajson': {'/name': ''}})
+    response = client.post('/' + UNAME + '/thing',
+                           data=data, headers=HEADERS)
+    assert 'thing already exist' in response.data
+
+
+def test_add_bad_type(client):
+    data = json.dumps({'mac': 45, 'json': '', 'metajson': ''})
+
+    response = client.post('/' + UNAME + '/thing',
+                           data=data, headers=HEADERS)
+
+    assert (IDENTIFIER + ' must be a integer, ' + JSONID + ' and ' +
+            METAJSONID + ' must be dictionaries' in response.data)
 
 # ########### Test get metajson and identifier with one thing ############
 
@@ -117,11 +162,14 @@ def test_find_things_bad_request(client):
 
 
 def test_modify_thing(client):
-    data_thing = json.dumps({'mac': 90, 'json': {'name': ''},
+    data_thing = json.dumps({'mac': 90, 'json': {'name': '', 'power': ''},
                              'metajson': {
                                  '/name': {'action': 'pass',
                                            'value': 'replace',
                                            'validmsg': '', 'validtype': ''},
+                                 '/power': {'action': 'pass',
+                                            'value': 'replace',
+                                            'validmsg': '', 'validtype': ''},
                                  'show': [
                                      {'name': 'sub', 'type': 'MQTT',
                                       'pattern': 'subscriber'}]}})
@@ -134,6 +182,58 @@ def test_modify_thing(client):
 
     assert 'Modified' in response.data and 'New' in add_new_thing.data
 
+
+def test_modify_two_values(client):
+    data = json.dumps({'mac': 90, 'json': {'name': 'bob',
+                                           'power': 'powerOn'}})
+
+    response = client.put('/' + UNAME + '/thing',
+                          data=data, headers=HEADERS)
+    response_get = client.get('/' + UNAME + '/' + JSONID + '/things')
+
+    assert 'Modified' in response.data and 'powerOn' in response_get.data
+
+
+def test_modify_repeat_value(client):
+
+    data = json.dumps({'mac': 90, 'json': {'name': 'bob'}})
+
+    response = client.put('/' + UNAME + '/thing',
+                          data=data, headers=HEADERS)
+
+    assert 'already have that value' in response.data
+
+
+def test_modify_repeat_w_two_values(client):
+    data = json.dumps({'mac': 90, 'json': {'name': 'bob',
+                                           'power': 'powerOff'}})
+
+    response = client.put('/' + UNAME + '/thing',
+                          data=data, headers=HEADERS)
+    response_get = client.get('/' + UNAME + '/' + JSONID + '/things')
+
+    assert 'Modified' in response.data and 'powerOff' in response_get.data
+
+
+def test_modify_repeat_two_values(client):
+    data = json.dumps({'mac': 90, 'json': {'name': 'bob',
+                                           'power': 'powerOff'}})
+
+    response = client.put('/' + UNAME + '/thing',
+                          data=data, headers=HEADERS)
+
+    assert 'already have that value' in response.data
+
+
+def test_modify_not_existing_value(client):
+
+    data = json.dumps({'mac': 90, 'json': {'invalidir': ''}})
+
+    response = client.put('/' + UNAME + '/thing',
+                          data=data, headers=HEADERS)
+
+    assert 'can\'t be modified or doesn\'t have' in response.data
+
 # ############### Test find with filter #########################
 
 
@@ -143,17 +243,92 @@ def test_find_thing_only_publisher(client):
                           data=data, headers=HEADERS)
     assert 'publisher' in response.data and 'subscriber' not in response.data
 
+# ######################## Test actions ##############################
+
+
+def test_actions(capsys, client):
+    _start_zeromq_client()
+    _port_subscriptions("MQTT")
+    data_thing = json.dumps({'mac': 91, 'json': {'name': '',
+                                                 'print': '',
+                                                 'send': '',
+                                                 'pass': ''},
+                             'metajson': {
+                                 '/print': {'action': 'print',
+                                            'value': 'replace',
+                                            'validmsg': '', 'validtype': ''},
+                                 '/send': {'action': 'send',
+                                           'value': 'replace',
+                                           'validmsg': '', 'validtype': '',
+                                           'topic': 'powerlamp',
+                                           'type': 'MQTT'},
+                                 '/pass': {'action': 'pass',
+                                           'value': 'replace',
+                                           'validmsg': '', 'validtype': ''}}})
+
+    data_modify = json.dumps({'mac': 91, 'json': {'print': 'print action',
+                                                  'send': 'send action',
+                                                  'pass': 'pass action'}})
+
+    add_new_thing = client.post('/' + UNAME + '/thing',
+                                data=data_thing, headers=HEADERS)
+
+    response = client.put('/' + UNAME + '/thing',
+                          data=data_modify, headers=HEADERS)
+    try:
+        [_address, _contents] = _zero_sub.recv_multipart()
+    except:
+        _contents = 'Time expired'
+    get_mod_things = client.get('/' + UNAME + '/' + JSONID + '/things')
+    out, err = capsys.readouterr()
+
+    assert ('Modified' in response.data and 'New' in add_new_thing.data and
+            'print action' in out and 'pass action' in get_mod_things.data and
+            u'send action' in _contents)
+
+
+def test_error_action(client):
+
+    data_thing = json.dumps({'mac': 92, 'json': {'name': '',
+                                                 'send': ''},
+                             'metajson': {
+                                 '/send': {'action': 'send',
+                                           'value': 'replace',
+                                           'validmsg': '', 'validtype': ''}}})
+
+    data_modify = json.dumps({'mac': 92, 'json': {'send': 'send action'}})
+
+    add_new_thing = client.post('/' + UNAME + '/thing',
+                                data=data_thing, headers=HEADERS)
+
+    response = client.put('/' + UNAME + '/thing',
+                          data=data_modify, headers=HEADERS)
+
+    assert ('\'Thing\' can\'t perform that action' in response.data and
+            'New' in add_new_thing.data)
+
 # ############### Test delete_thing function ####################
 
 
 def test_delete_thing(client):
     data = (json.dumps({'mac': 88}), json.dumps({'mac': 89}),
-            json.dumps({'mac': 90}))
-    response88 = client.delete('/' + UNAME + '/thing', data=data[0],
-                               headers=HEADERS)
-    response89 = client.delete('/' + UNAME + '/thing', data=data[1],
-                               headers=HEADERS)
-    response90 = client.delete('/' + UNAME + '/thing', data=data[2],
-                               headers=HEADERS)
-    assert ('Deleted' in response88.data and 'Deleted' in response89.data and
-            'Deleted' in response90.data)
+            json.dumps({'mac': 90}), json.dumps({'mac': 91}),
+            json.dumps({'mac': 92}))
+    _deleted_things = 0
+
+    for _thing in range(len(data)):
+        response = client.delete('/' + UNAME + '/thing',
+                                 data=data[_thing],
+                                 headers=HEADERS)
+        if 'Deleted' in response.data:
+            _deleted_things += 1
+
+    assert (_deleted_things is len(data))
+
+
+def test_delete_not_existing_thing(client):
+    data = (json.dumps({'mac': 88}))
+    response = client.delete('/' + UNAME + '/thing', data=data,
+                             headers=HEADERS)
+
+    assert ('Not found' in response.data)

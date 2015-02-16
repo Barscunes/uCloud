@@ -111,28 +111,29 @@ class Things:
     # ########################## Add new thing ###################
 
     def add(self, new_thing):
-        if self.search_db(self.DB_COLUMN[self.IDENTIFIER],
-                          new_thing[self.IDENTIFIER]):
-            _msg = (False, 'duplicate', 409)
-        else:
-            # If the name is repeated in the Data base a new name is given
-            # (maybe unnecessary cuz identifier)
-
-            x = 0
-            _new_name = new_thing[self.JSONID]['name']
-            while self.search_db(self.DB_COLUMN[self.JSONID],
-                                 '\'' + str(_new_name) + '\''):
-                x += 1
-                _new_name = new_thing[self.JSONID]['name'] + str(x)
-
-            new_thing[self.JSONID]['name'] = _new_name
-            if('int' not in str(type(new_thing[self.IDENTIFIER])) or
-               'dict' not in str(type(new_thing[self.JSONID])) or
-               'dict' not in str(type(new_thing[self.METAJSONID]))):
-                _msg = (False, 'badtype', 400)
+        try:
+            if self.search_db(self.DB_COLUMN[self.IDENTIFIER],
+                              new_thing[self.IDENTIFIER]):
+                _msg = (False, 'duplicate', 409)
             else:
+                # If the name is repeated in the Data base a new name is given
+                # (maybe unnecessary cuz identifier)
+                x = 0
+                _new_name = new_thing[self.JSONID]['name']
+                while self.search_db(self.DB_COLUMN[self.JSONID],
+                                     '\'' + str(_new_name) + '\''):
+                    x += 1
+                    _new_name = new_thing[self.JSONID]['name'] + str(x)
+
+                new_thing[self.JSONID]['name'] = _new_name
                 self._add_thing_db(new_thing)
                 _msg = True,
+        except Exception, e:
+            if 'name' in str(e):
+                _msg = (False, 'name', 400)
+            elif 'integer' in str(e) or 'getitem' in str(e):
+                _msg = (False, 'badtype', 400)
+
         return _msg
 
     # ################# Insert new Thing in the Data Base #####################
@@ -185,8 +186,12 @@ class Things:
             _metajson_thing = _target_thing[2]
             _msg = self._change_managment(mod_thing[self.JSONID], '',
                                           _json_thing, _metajson_thing)
-            if _json_thing is not _target_thing[1] and _msg[0]:
-                self._modify_db(_target_thing[0], _json_thing)
+            try:
+                if _json_thing is not _target_thing[1] and _msg[0]:
+                    self._modify_db(_target_thing[0], _json_thing)
+            except Exception, e:
+                if "out of range" in str(e):
+                    _msg = (False, 'modifyRepeat', 409)
         return _msg
 
     # ############## Check the instructions for the port ######################
@@ -219,7 +224,7 @@ class Things:
                                                   _json_thing[_keys[x]],
                                                   _metajson_thing)
                 if not _sub_dir[0]:
-                    if _mod_json_thing[_keys[x]] is not _json_thing[_keys[x]]:
+                    if _mod_json_thing[_keys[x]] != _json_thing[_keys[x]]:
                         _msg = _msg + self._thing_actions(
                             _metajson_thing[_current_dir + '/' +
                                             str(_keys[x])],
@@ -230,7 +235,7 @@ class Things:
                 x += 1
             return _msg
         except:
-            return False,
+            return (False, 'notDir', 409)
 
     # #################### Make the required changes ########################
 
