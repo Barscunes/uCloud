@@ -120,7 +120,7 @@ def test_get_things_bad_request(client):
 
 
 def test_find_things_with_out_filter(client):
-    response = client.get('/' + UNAME + '/find/MQTT/things')
+    response = client.get('/' + UNAME + '/find/things')
     assert 'found' in response.data
 
 
@@ -137,7 +137,7 @@ def test_find_things_with_subscriber_filter(client):
     add_new_thing = client.post('/' + UNAME + '/thing',
                                 data=data_thing, headers=HEADERS)
 
-    response = client.get('/' + UNAME + '/find/MQTT/things',
+    response = client.get('/' + UNAME + '/find/things',
                           data=data_find, headers=HEADERS)
     assert 'subscriber' in response.data and 'New' in add_new_thing.data
 
@@ -145,7 +145,7 @@ def test_find_things_with_subscriber_filter(client):
 def test_find_things_not_found(client):
     data_show = json.dumps({'not': 'found'})
     data_type = json.dumps('BT')
-    response_show = client.get('/' + UNAME + '/find/MQTT/things',
+    response_show = client.get('/' + UNAME + '/find/things',
                                data=data_show, headers=HEADERS)
     response_type = client.get('/' + UNAME + '/find/' + data_type + '/things')
     assert ('Not found' in response_show.data and
@@ -154,7 +154,7 @@ def test_find_things_not_found(client):
 
 def test_find_things_bad_request(client):
     data = 'BAD REQUEST'
-    response = client.get('/' + UNAME + '/find/MQTT/things',
+    response = client.get('/' + UNAME + '/find/things',
                           data=data, headers=HEADERS)
     assert 'Bad request' in response.data
 
@@ -238,8 +238,8 @@ def test_modify_not_existing_value(client):
 
 
 def test_find_thing_only_publisher(client):
-    data = json.dumps({'pattern': 'publisher'})
-    response = client.get('/' + UNAME + '/find/MQTT/things',
+    data = json.dumps({'pattern': 'publisher', 'type': 'MQTT'})
+    response = client.get('/' + UNAME + '/find/things',
                           data=data, headers=HEADERS)
     assert 'publisher' in response.data and 'subscriber' not in response.data
 
@@ -247,8 +247,10 @@ def test_find_thing_only_publisher(client):
 
 
 def test_actions(capsys, client):
+    RestCore._start_zeromq_pub()
     _start_zeromq_client()
     _port_subscriptions("MQTT")
+    _zero_sub.setsockopt(zmq.SUBSCRIBE, 'MQTTPub')
     data_thing = json.dumps({'mac': 91, 'json': {'name': '',
                                                  'print': '',
                                                  'send': '',
@@ -277,7 +279,8 @@ def test_actions(capsys, client):
                           data=data_modify, headers=HEADERS)
     try:
         [_address, _contents] = _zero_sub.recv_multipart()
-    except:
+    except Exception, e:
+        print("ERROR:!!!!!"+str(e))
         _contents = 'Time expired'
     get_mod_things = client.get('/' + UNAME + '/' + JSONID + '/things')
     out, err = capsys.readouterr()

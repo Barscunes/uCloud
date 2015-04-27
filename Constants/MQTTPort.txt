@@ -1,0 +1,9 @@
+{
+    'PORT_NAME': 'mqtt',
+    'SUBSCRIPTIONS': ('post', 'delete'),
+    'TOPIC_SUB': ('MQTTPub', 'MQTTSub', 'MQTTUnsub'),
+    'PORT_PUB': '5560',
+    'PORT_SUB': ('5561',),
+    'REST_TOPICS':['post', 'delete']
+}
+

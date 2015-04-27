@@ -1,0 +1,8 @@
+{
+    'UNAME': 'ucloud',
+    'IDENTIFIER': 'mac',
+    'JSONID': 'json',
+    'METAJSONID': 'metajson',
+    'SETUPID': 'setup',
+    'SETDOWNID': 'setdown'
+}
