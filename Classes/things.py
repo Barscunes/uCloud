@@ -192,35 +192,24 @@ def modify(mod_thing):
         _msg = _change_managment(mod_thing[JSONID], '',
                                  _json_thing, _metajson_thing)
         try:
-            if _json_thing is not _target_thing[1] and _msg[0]:
+            if _msg['error']:
+                pass
+            elif len(set(_json_thing.items()) ^
+                     set(_target_thing[1].items())) != 0:
                 _modify_db(_target_thing[0], _json_thing)
+            else:
+                _msg = {'error': True, 'cause': 'modifyRepeat', 'code': 409}
         except Exception, e:
             if "out of range" in str(e):
                 _msg = {'error': True, 'cause': 'modifyRepeat', 'code': 409}
     return _msg
-
-# ############## Check the instructions for the port ######################
-
-
-def check_inst(_inst_dir, _inst_msg, _col_name):
-
-    _target_thing = search_db(_col_name, _inst_dir, 'all')
-    if _target_thing:
-        _target_thing = _target_thing[0]
-        _json_thing = _target_thing[1].copy()
-        _metajson_thing = _target_thing[2][_inst_dir]
-        _msg = _thing_actions(_metajson_thing, _inst_msg, _json_thing,
-                              _metajson_thing['dir'], False)
-        if _json_thing is not _target_thing[1]:
-            _modify_db(_target_thing[0], _json_thing)
-        return _msg
 
 # ################### Identify the changes made ###########################
 
 
 def _change_managment(_mod_json_thing, _current_dir,
                       _json_thing, _metajson_thing):
-    _msg = ()
+    _msg = {'error': False, 'instructions': []}
     try:
         _keys = _mod_json_thing.keys()
         x = 0
@@ -230,32 +219,31 @@ def _change_managment(_mod_json_thing, _current_dir,
                                          str(_keys[x]),
                                          _json_thing[_keys[x]],
                                          _metajson_thing)
-            if not _sub_dir[0]:
+            if _sub_dir['error']:
                 if _mod_json_thing[_keys[x]] != _json_thing[_keys[x]]:
-                    _msg = _msg + _thing_actions(
-                        _metajson_thing[_current_dir + '/' +
-                                        str(_keys[x])],
-                        _mod_json_thing[_keys[x]],
-                        _json_thing, _keys[x])
+                    _msg['instructions'].append(
+                        _thing_actions(_metajson_thing[_current_dir + '/' +
+                                                       str(_keys[x])],
+                                       _mod_json_thing[_keys[x]],
+                                       _json_thing, _keys[x]))
             else:
                 return _sub_dir
             x += 1
         return _msg
     except:
-        return (False, 'notDir', 409)
-
+        return {'error': True, 'cause': 'notDir', 'code': 409}
 # #################### Make the required changes ########################
 
 
 def _thing_actions(_model, _new_value, _init_value, _key,
                    _validate=True):
 
-    _msg = True,
+    _msg = {'error': False}
     if _validate:
         _msg = _validate_payload(_model['validtype'],
                                  _model['validmsg'], _new_value)
-    if _msg[0]:
-        _msg = ()
+    if not _msg['error']:
+        _msg = {'error': False, 'instructions': []}
         try:
             if 'item' in _model:
                 _thing_actions(_model['item'], _new_value,
@@ -266,7 +254,8 @@ def _thing_actions(_model, _new_value, _init_value, _key,
                     _model, _init_value, _new_value, _key)
         except:
             pass
-        _msg = _msg + (_model, _new_value)
+        _msg = {'model': _model, 'value': _new_value}
+        #_msg['instructions'].append({'model': _model, 'value': _new_value})
     return _msg
 
 # ################### Check if the payload is correct ####################
@@ -282,11 +271,27 @@ def _validate_payload(_valid_type, _valid_msg, _to_val_msg):
     _to_val_type = _to_val_type.split("'")
     if ((_to_val_type[1] not in _valid_type and '' not in _valid_type) or
             (_to_val_msg not in _valid_msg and '' not in _valid_msg)):
-        _msg = (False, None, 400)
+        return {'error': True, 'cause': None, 'code': 400}
     else:
-        _msg = True,
+        return {'error': False}
 
-    return _msg
+# ############## Check the instructions for the port ######################
+
+
+def check_inst(_inst_dir, _inst_msg, _col_name):
+    _msg = []
+    _targets = search_db(_col_name, _inst_dir, 'all')
+    if _targets:
+        for _thing in _targets:
+            _target_thing = _thing
+            _json_thing = _target_thing[1].copy()
+            _metajson_thing = _target_thing[2][_inst_dir]
+            _msg.append(_thing_actions(_metajson_thing, _inst_msg, _json_thing,
+                                       _metajson_thing['dir'], False))
+            if _json_thing is not _target_thing[1]:
+                _modify_db(_target_thing[0], _json_thing)
+        return _msg
+
 
 # ###################### Delete a specific Thing ######################
 
@@ -296,11 +301,10 @@ def delete(_del_thing):
                         _del_thing[IDENTIFIER],
                         DB_COLUMN[METAJSONID])
     if not _target:
-        _msg = {'error': True, 'cause': None, 'code': 404}
+        return {'error': True, 'cause': None, 'code': 404}
     else:
         _delete_db(_del_thing[IDENTIFIER])
-        _msg = _target
-    return _msg
+        return {'error': False, 'target': _target}
 
 # ###################### Find specific things #####################
 

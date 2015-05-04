@@ -1748,7 +1748,7 @@ div#notebook {
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[16]:
+In&nbsp;[1]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1774,7 +1774,7 @@ In&nbsp;[16]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[46]:
+In&nbsp;[2]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1819,7 +1819,7 @@ In&nbsp;[46]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[7]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1848,7 +1848,17 @@ In&nbsp;[7]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Obtener-los-dispositivos-registrados-en-uCloud">Obtener los dispositivos registrados en uCloud<a class="anchor-link" href="#Obtener-los-dispositivos-registrados-en-uCloud">&#182;</a></h3>
+<h3 id="/ucloud(nombre-de-tu-ucloud)/json/things">/ucloud(nombre de tu ucloud)/json/things<a class="anchor-link" href="#/ucloud(nombre-de-tu-ucloud)/json/things">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Nos-permite-obtener-los-dispositivos-registrados-en-uCloud">Nos permite obtener los dispositivos registrados en uCloud<a class="anchor-link" href="#Nos-permite-obtener-los-dispositivos-registrados-en-uCloud">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -1856,7 +1866,7 @@ In&nbsp;[7]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[49]:
+In&nbsp;[4]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1882,9 +1892,16 @@ Code: 200
   &quot;Things&quot;: [
     {
       &quot;json&quot;: {
-        &quot;name&quot;: &quot;prueba&quot;
+        &quot;link&quot;: {
+          &quot;Off&quot;: [],
+          &quot;On&quot;: [],
+          &quot;topic&quot;: []
+        },
+        &quot;name&quot;: &quot;SimpleLed&quot;,
+        &quot;power&quot;: &quot;&quot;,
+        &quot;state&quot;: 0
       },
-      &quot;mac&quot;: 2
+      &quot;mac&quot;: 1
     }
   ]
 }
@@ -1902,7 +1919,17 @@ Code: 200
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Tambien-podemos-obtener-su-'metajson'-al-cambiar-'/ucloud/json/things'-por-'/ucloud/metajson/things'">Tambien podemos obtener su 'metajson' al cambiar '/ucloud/json/things' por '/ucloud/metajson/things'<a class="anchor-link" href="#Tambien-podemos-obtener-su-'metajson'-al-cambiar-'/ucloud/json/things'-por-'/ucloud/metajson/things'">&#182;</a></h3>
+<h3 id="/ucloud(nombre-de-tu-ucloud)/metajson/things">/ucloud(nombre de tu ucloud)/metajson/things<a class="anchor-link" href="#/ucloud(nombre-de-tu-ucloud)/metajson/things">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Nos-permite-obtener-el-'metajson'-de-los-dispositivos">Nos permite obtener el 'metajson' de los dispositivos<a class="anchor-link" href="#Nos-permite-obtener-el-'metajson'-de-los-dispositivos">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -1910,7 +1937,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[9]:
+In&nbsp;[5]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2070,7 +2097,17 @@ Code: 200
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Buscar-por-caracter&#237;sticas-espec&#237;ficas-de-nuestros-dispositivos-y-entender-que-acci&#243;n-realiza-cada-caracter&#237;stica">Buscar por caracter&#237;sticas espec&#237;ficas de nuestros dispositivos y entender que acci&#243;n realiza cada caracter&#237;stica<a class="anchor-link" href="#Buscar-por-caracter&#237;sticas-espec&#237;ficas-de-nuestros-dispositivos-y-entender-que-acci&#243;n-realiza-cada-caracter&#237;stica">&#182;</a></h3>
+<h3 id="/ucloud(nombre-de-tu-ucloud)/find/things">/ucloud(nombre de tu ucloud)/find/things<a class="anchor-link" href="#/ucloud(nombre-de-tu-ucloud)/find/things">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Nos-permite-buscar-por-caracter&#237;sticas-espec&#237;ficas-de-nuestros-dispositivos-y-entender-que-acci&#243;n-realiza-cada-una.">Nos permite buscar por caracter&#237;sticas espec&#237;ficas de nuestros dispositivos y entender que acci&#243;n realiza cada una.<a class="anchor-link" href="#Nos-permite-buscar-por-caracter&#237;sticas-espec&#237;ficas-de-nuestros-dispositivos-y-entender-que-acci&#243;n-realiza-cada-una.">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -2078,7 +2115,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[11]:
+In&nbsp;[6]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2136,6 +2173,16 @@ Code: 200
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="El-resultado-nos-muestra-que-la-caracter&#237;stica-de-nombre-power('name':'power'),-la-cual-esta-esperando(escuchando)-comandos('pattern':'listener')-para-prender-y-apagar-el-led('notes':'Turn-on-and-off-the-led'),-esta-caract&#233;ristica-se-encuentra-en-el-directorio-raiz-del-objeto,-ya-que-solo-tiene-una-direcci&#243;n('dir':'power'),-y-solo-acepta-mensajes-enteros('validtype':-'int')-que-sean-0-o-1('validmsg':[0,1])">El resultado nos muestra que la caracter&#237;stica de nombre power('name':'power'), la cual esta esperando(escuchando) comandos('pattern':'listener') para prender y apagar el led('notes':'Turn on and off the led'), esta caract&#233;ristica se encuentra en el directorio raiz del objeto, ya que solo tiene una direcci&#243;n('dir':'power'), y solo acepta mensajes enteros('validtype': 'int') que sean 0 o 1('validmsg':[0,1])<a class="anchor-link" href="#El-resultado-nos-muestra-que-la-caracter&#237;stica-de-nombre-power('name':'power'),-la-cual-esta-esperando(escuchando)-comandos('pattern':'listener')-para-prender-y-apagar-el-led('notes':'Turn-on-and-off-the-led'),-esta-caract&#233;ristica-se-encuentra-en-el-directorio-raiz-del-objeto,-ya-que-solo-tiene-una-direcci&#243;n('dir':'power'),-y-solo-acepta-mensajes-enteros('validtype':-'int')-que-sean-0-o-1('validmsg':[0,1])">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="PUT">PUT<a class="anchor-link" href="#PUT">&#182;</a></h2>
 </div>
 </div>
@@ -2146,7 +2193,17 @@ Code: 200
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Modificamos-la-caracter&#237;sticas-que-buscamos-previamente">Modificamos la caracter&#237;sticas que buscamos previamente<a class="anchor-link" href="#Modificamos-la-caracter&#237;sticas-que-buscamos-previamente">&#182;</a></h3>
+<h3 id="/ucloud(nombre-de-tu-ucloud)/thing">/ucloud(nombre de tu ucloud)/thing<a class="anchor-link" href="#/ucloud(nombre-de-tu-ucloud)/thing">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Modificamos-la-caracter&#237;stica-que-buscamos-previamente">Modificamos la caracter&#237;stica que buscamos previamente<a class="anchor-link" href="#Modificamos-la-caracter&#237;stica-que-buscamos-previamente">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -2154,7 +2211,201 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[19]:
+In&nbsp;[7]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s">&#39;http://127.0.0.1:8000/ucloud/thing&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;mac&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                                                                        <span class="s">&#39;json&#39;</span><span class="p">:{</span><span class="s">&#39;power&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}}),</span>
+                                                       <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">})</span>
+<span class="k">print</span> <span class="s">&#39;Code: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n\n</span><span class="s"> MSG:</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Code: 202
+
+ MSG:
+{
+  &quot;Thing&quot;: &quot;Modified&quot;
+}
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Este-request-genera-que-el-led-se-prenda">Este request genera que el led se prenda<a class="anchor-link" href="#Este-request-genera-que-el-led-se-prenda">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Al-obtener-de-nuevo-los-dispositivos-conectados-notaremos-que-la-caracter&#237;stica-'state'-ha-cambiado">Al obtener de nuevo los dispositivos conectados notaremos que la caracter&#237;stica 'state' ha cambiado<a class="anchor-link" href="#Al-obtener-de-nuevo-los-dispositivos-conectados-notaremos-que-la-caracter&#237;stica-'state'-ha-cambiado">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[8]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://127.0.0.1:8000/ucloud/json/things&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Code: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n\n</span><span class="s"> MSG:</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Code: 200
+
+ MSG:
+{
+  &quot;Things&quot;: [
+    {
+      &quot;json&quot;: {
+        &quot;link&quot;: {
+          &quot;Off&quot;: [],
+          &quot;On&quot;: [],
+          &quot;topic&quot;: []
+        },
+        &quot;name&quot;: &quot;SimpleLed&quot;,
+        &quot;power&quot;: &quot;&quot;,
+        &quot;state&quot;: &quot;1&quot;
+      },
+      &quot;mac&quot;: 1
+    }
+  ]
+}
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="POST">POST<a class="anchor-link" href="#POST">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="/ucloud(nombre-de-tu-ucloud)/thing">/ucloud(nombre de tu ucloud)/thing<a class="anchor-link" href="#/ucloud(nombre-de-tu-ucloud)/thing">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Podemos-agregar-dispositivos-manualmente,-lo-que-sirve-para--crear-dispositivos-virtuales-que-interactuen-con-los-f&#237;sicos">Podemos agregar dispositivos manualmente, lo que sirve para  crear dispositivos virtuales que interactuen con los f&#237;sicos<a class="anchor-link" href="#Podemos-agregar-dispositivos-manualmente,-lo-que-sirve-para--crear-dispositivos-virtuales-que-interactuen-con-los-f&#237;sicos">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[9]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;http://127.0.0.1:8000/ucloud/thing&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;mac&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                                                                        <span class="s">&#39;json&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;PrintState&#39;</span><span class="p">,</span> <span class="s">&#39;state&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">},</span>
+                                                                        <span class="s">&#39;metajson&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;mqtt/ledstate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;dir&#39;</span><span class="p">:</span> <span class="s">&#39;state&#39;</span><span class="p">,</span>
+                                                                                                      <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;print&#39;</span><span class="p">,</span>
+                                                                                                      <span class="s">&#39;value&#39;</span><span class="p">:</span> <span class="s">&#39;replace&#39;</span><span class="p">,</span>
+                                                                                                      <span class="s">&#39;validmsg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                                                                                      <span class="s">&#39;validtype&#39;</span><span class="p">:</span> <span class="s">&#39;int&#39;</span><span class="p">}}}),</span>
+                                                       <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">})</span>
+<span class="k">print</span> <span class="s">&#39;Code: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n\n</span><span class="s"> MSG:</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Code: 201
+
+ MSG:
+{
+  &quot;Thing&quot;: &quot;New&quot;
+}
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="En-este-caso-creamos-un-dispositivo-de-nombre-PrintState-el-cuando-exista-un-cambio-en-el-topic-'ledstate'-imprimir&#225;-su-valor-en-la-consola-del-puerto-MQTT">En este caso creamos un dispositivo de nombre PrintState el cuando exista un cambio en el topic 'ledstate' imprimir&#225; su valor en la consola del puerto MQTT<a class="anchor-link" href="#En-este-caso-creamos-un-dispositivo-de-nombre-PrintState-el-cuando-exista-un-cambio-en-el-topic-'ledstate'-imprimir&#225;-su-valor-en-la-consola-del-puerto-MQTT">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[10]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2195,17 +2446,7 @@ Code: 202
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="POST">POST<a class="anchor-link" href="#POST">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Podemos-agregar-dispositivos-manualmente,-lo-que-sirve-para--crear-dispositivos-virtuales-que-interactuen-con-los-f&#237;sicos">Podemos agregar dispositivos manualmente, lo que sirve para  crear dispositivos virtuales que interactuen con los f&#237;sicos<a class="anchor-link" href="#Podemos-agregar-dispositivos-manualmente,-lo-que-sirve-para--crear-dispositivos-virtuales-que-interactuen-con-los-f&#237;sicos">&#182;</a></h3>
+<h3 id="Podemos-observar-que-el-led-se-ha-apagado-y-la-caracter&#237;stica-'state'-de-ambos-dispositivos-ha-cambiado">Podemos observar que el led se ha apagado y la caracter&#237;stica 'state' de ambos dispositivos ha cambiado<a class="anchor-link" href="#Podemos-observar-que-el-led-se-ha-apagado-y-la-caracter&#237;stica-'state'-de-ambos-dispositivos-ha-cambiado">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -2213,14 +2454,11 @@ Code: 202
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[45]:
+In&nbsp;[11]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;http://127.0.0.1:8000/ucloud/thing&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;mac&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-                                                                        <span class="s">&#39;json&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;prueba&#39;</span><span class="p">},</span>
-                                                                        <span class="s">&#39;metajson&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;/name&#39;</span><span class="p">:</span> <span class="s">&#39;prueba&#39;</span><span class="p">}}),</span>
-                                                       <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">})</span>
+<div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://127.0.0.1:8000/ucloud/json/things&#39;</span><span class="p">)</span>
 <span class="k">print</span> <span class="s">&#39;Code: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n\n</span><span class="s"> MSG:</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 
@@ -2235,11 +2473,32 @@ In&nbsp;[45]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-Code: 201
+Code: 200
 
  MSG:
 {
-  &quot;Thing&quot;: &quot;New&quot;
+  &quot;Things&quot;: [
+    {
+      &quot;json&quot;: {
+        &quot;link&quot;: {
+          &quot;Off&quot;: [],
+          &quot;On&quot;: [],
+          &quot;topic&quot;: []
+        },
+        &quot;name&quot;: &quot;SimpleLed&quot;,
+        &quot;power&quot;: &quot;&quot;,
+        &quot;state&quot;: &quot;0&quot;
+      },
+      &quot;mac&quot;: 1
+    },
+    {
+      &quot;json&quot;: {
+        &quot;name&quot;: &quot;PrintState&quot;,
+        &quot;state&quot;: &quot;0&quot;
+      },
+      &quot;mac&quot;: 2
+    }
+  ]
 }
 
 </pre>
@@ -2255,6 +2514,26 @@ Code: 201
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tambien-podemos-observar-en-nuestra-consola-que-se-ha-impreso-el-valor-de-'lampstate'">Tambien podemos observar en nuestra consola que se ha impreso el valor de 'lampstate'<a class="anchor-link" href="#Tambien-podemos-observar-en-nuestra-consola-que-se-ha-impreso-el-valor-de-'lampstate'">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id=""><img src="images/consoleSS.png" /><a class="anchor-link" href="#">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="DELETE">DELETE<a class="anchor-link" href="#DELETE">&#182;</a></h3>
 </div>
 </div>
@@ -2265,7 +2544,17 @@ Code: 201
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Podemos-borrar-dispositivos-manualmente">Podemos borrar dispositivos manualmente<a class="anchor-link" href="#Podemos-borrar-dispositivos-manualmente">&#182;</a></h3>
+<h3 id="/ucloud(nombre-de-tu-ucloud)/thing">/ucloud(nombre de tu ucloud)/thing<a class="anchor-link" href="#/ucloud(nombre-de-tu-ucloud)/thing">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Por-&#250;ltimo-podemos-borrar-dispositivos-manualmente">Por &#250;ltimo podemos borrar dispositivos manualmente<a class="anchor-link" href="#Por-&#250;ltimo-podemos-borrar-dispositivos-manualmente">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -2273,7 +2562,7 @@ Code: 201
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[47]:
+In&nbsp;[12]:
 </div>
 <div class="inner_cell">
     <div class="input_area">

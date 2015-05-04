@@ -132,12 +132,12 @@ def _do_actions(_instructions):
     x = 0
     while len(_instructions) > x:
         try:
-            _actions[_instructions[x]['action']](_instructions[x + 1],
-                                                 _instructions[x])
+            _actions[_instructions[x]['model']['action']](
+                _instructions[x]['value'], _instructions[x]['model'])
         except:
             error_key = 'instruction'
             abort(400)
-        x += 2
+        x += 1
 
 # #############################################################################
 # ########################## ERROR HANDLERS ###################################
@@ -174,7 +174,7 @@ def conflict(error):
 # ################## REST METHODS ############################
 # ############################################################
 
-# Get the JSON of all your connected things
+# Get the JSON, METAJSON or IDENTIFIER of all your connected things
 
 
 @app.route('/' + UNAME + '/<string:_key>/things', methods=['GET'])
@@ -235,7 +235,7 @@ def update_task():
     if _reply['error']:
         error_key = _reply['cause']
         abort(_reply['code'])
-    _do_actions(_reply)
+    _do_actions(_reply['instructions'])
     return jsonify({'Thing': 'Modified'}), 202
 
 # ################## Delete Thing #############################
@@ -256,8 +256,8 @@ def delete_thing():
     if _reply['error']:
         error_key = _reply['cause']
         abort(_reply['code'])
-    if SETDOWNID in _reply:
-        _initial_set(_reply[SETDOWNID], _setdown_inst)
+    if SETDOWNID in _reply['target']:
+        _initial_set(_reply['target'][SETDOWNID], _setdown_inst)
     return jsonify({'Thing': 'Deleted'}), 201
 
 

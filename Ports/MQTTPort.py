@@ -111,16 +111,18 @@ def _on_message(_client, _userdata, _msg):
 
         _send_rest(_msg.topic, _msg.payload)
     else:
-        _get_inst = things.check_inst(PORT_NAME + '/' + _msg.topic,
-                                      _msg.payload, DB_COLUMN[METAJSONID])
-        if _get_inst:
-            try:
-                _actions[_get_inst[INSTRUCTIONS]['action']](_get_inst[MSG])
-            except Exception, _error:
-                if "object has no attribute '__getitem__'" not in str(_error):
-                    if _get_inst[INSTRUCTIONS]['action'] in str(_error):
-                        _error = 'Unknown action ' + str(_error)
-                _error_managment(str(_error))
+        _get_insts = things.check_inst(PORT_NAME + '/' + _msg.topic,
+                                       _msg.payload, DB_COLUMN[METAJSONID])
+        if _get_insts:
+            for _inst in _get_insts:
+                try:
+                    _actions[_inst['model']['action']](_inst['value'])
+                except Exception, _error:
+                    if ("object has no attribute '__getitem__'" not in
+                            str(_error)):
+                        if _inst['model']['action'] in str(_error):
+                            _error = 'Unknown action ' + str(_error)
+                    _error_managment(str(_error))
         else:
             print('Thing not found')
 
