@@ -22,6 +22,10 @@ IDENTIFIER = GENERAL['IDENTIFIER']
 JSONID = GENERAL['JSONID']
 METAJSONID = GENERAL['METAJSONID']
 PORT_NAME = PORT['PORT_NAME']
+try:
+    MQTT_SERVER_NAME = sys.argv[1]
+except:
+    MQTT_SERVER_NAME = PORT['MQTT_SERVER_NAME']
 DB_COLUMN = {
     IDENTIFIER: 'identifier',
     JSONID: 'jsonid',
@@ -205,7 +209,7 @@ def _start_zeromq_client():
 def _start_mqtt_client():
     mqtt_client.on_connect = _on_connect
     mqtt_client.on_message = _on_message
-    mqtt_client.connect('0.0.0.0')
+    mqtt_client.connect(MQTT_SERVER_NAME)
 
 # ############################## Error managment ##############################
 

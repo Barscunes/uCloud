@@ -1740,7 +1740,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Iniciamos-el-n&#250;celo-RestCore.py-el-puerto-MQTTPort.py">Iniciamos el n&#250;celo RestCore.py el puerto MQTTPort.py<a class="anchor-link" href="#Iniciamos-el-n&#250;celo-RestCore.py-el-puerto-MQTTPort.py">&#182;</a></h3>
+<h3 id="Iniciamos-el-n&#250;celo-RestCore.py">Iniciamos el n&#250;celo RestCore.py<a class="anchor-link" href="#Iniciamos-el-n&#250;celo-RestCore.py">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -1748,12 +1748,81 @@ div#notebook {
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[1]:
+In&nbsp;[9]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="o">!</span>gnome-terminal -x python ../Core/RestCore.py
-<span class="o">!</span>gnome-terminal -x python ../Ports/MQTTPort.py
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Iniciamos-el-puerto-MQTTPort.py,-el-cu&#225;l-necesita-un-broker-MQTT-para-su-funcionamiento">Iniciamos el puerto MQTTPort.py, el cu&#225;l necesita un broker MQTT para su funcionamiento<a class="anchor-link" href="#Iniciamos-el-puerto-MQTTPort.py,-el-cu&#225;l-necesita-un-broker-MQTT-para-su-funcionamiento">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="o">!</span>gnome-terminal -x python ../Ports/MQTTPort.py
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Si-no-cuenta-con-un-broker-MQTT-puede-utilizar-el-proporcionado-por-mosquitto-para-pruebas(con-moderaci&#243;n)">Si no cuenta con un broker MQTT puede utilizar el proporcionado por mosquitto para pruebas(con moderaci&#243;n)<a class="anchor-link" href="#Si-no-cuenta-con-un-broker-MQTT-puede-utilizar-el-proporcionado-por-mosquitto-para-pruebas(con-moderaci&#243;n)">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Mosquitto-tambien-proporciona-un-servidor-que-puede-ser-instalado-en-su-equipo.-http://mosquitto.org/">Mosquitto tambien proporciona un servidor que puede ser instalado en su equipo. <a href="http://mosquitto.org/">http://mosquitto.org/</a><a class="anchor-link" href="#Mosquitto-tambien-proporciona-un-servidor-que-puede-ser-instalado-en-su-equipo.-http://mosquitto.org/">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Para-indicar-que-utilizaremos-el-broker-de-mosquitto-(o-cualquier-otro-que-no-se-encuentre-en-'localhost')-lo-indicamos-de-la-siguiente-forma.">Para indicar que utilizaremos el broker de mosquitto (o cualquier otro que no se encuentre en 'localhost') lo indicamos de la siguiente forma.<a class="anchor-link" href="#Para-indicar-que-utilizaremos-el-broker-de-mosquitto-(o-cualquier-otro-que-no-se-encuentre-en-'localhost')-lo-indicamos-de-la-siguiente-forma.">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="o">!</span>gnome-terminal -x python ../Ports/MQTTPort.py <span class="s1">&#39;test.mosquitto.org&#39;</span>
 </pre></div>
 
 </div>
@@ -1819,7 +1888,7 @@ In&nbsp;[2]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[3]:
+In&nbsp;[4]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1866,7 +1935,7 @@ In&nbsp;[3]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[4]:
+In&nbsp;[5]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2211,7 +2280,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[7]:
+In&nbsp;[6]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2405,7 +2474,7 @@ Code: 201
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[10]:
+In&nbsp;[7]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2562,7 +2631,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[12]:
+In&nbsp;[8]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2584,11 +2653,11 @@ In&nbsp;[12]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-Code: 201
+Code: 404
 
  MSG:
 {
-  &quot;Thing&quot;: &quot;Deleted&quot;
+  &quot;error&quot;: &quot;Not found&quot;
 }
 
 </pre>
