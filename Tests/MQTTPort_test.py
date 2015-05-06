@@ -212,8 +212,8 @@ def test_check(capsys):
 
 
 @mock.patch('MQTTPort.things.check_inst',
-            return_value=({'action': 'print'},
-                          'Test action'))
+            return_value=[{'model': {'action': 'print'},
+                           'value': 'Test action'}])
 def test_action(things_check_inst, capsys):
 
     MQTTPort._on_message(_MqttTemplate.client, _MqttTemplate.userdata,
@@ -226,8 +226,8 @@ def test_action(things_check_inst, capsys):
 
 
 @mock.patch('MQTTPort.things.check_inst',
-            return_value=({'action': 'send'},
-                          'Test incomplete action'))
+            return_value=[{'model': {'action': 'send'},
+                           'value': 'Test incomplete action'}])
 def test_action_incomplete(things_check_inst, capsys):
 
     MQTTPort._on_message(_MqttTemplate.client, _MqttTemplate.userdata,
@@ -241,8 +241,8 @@ def test_action_incomplete(things_check_inst, capsys):
 
 
 @mock.patch('MQTTPort.things.check_inst',
-            return_value=(True,
-                          'Test no instruction'))
+            return_value=[{'model': True,
+                           'value': 'Test no instruction'}])
 def test_action_no_instruction(things_check_inst, capsys):
 
     MQTTPort._on_message(_MqttTemplate.client, _MqttTemplate.userdata,
@@ -255,8 +255,8 @@ def test_action_no_instruction(things_check_inst, capsys):
 
 
 @mock.patch('MQTTPort.things.check_inst',
-            return_value=({'action': 'unknown'},
-                          'Test unknown action'))
+            return_value=[{'model': {'action': 'unknown'},
+                          'value': 'Test unknown action'}])
 def test_action_undefined(things_check_inst, capsys):
 
     MQTTPort._on_message(_MqttTemplate.client, _MqttTemplate.userdata,

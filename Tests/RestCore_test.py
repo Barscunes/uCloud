@@ -107,11 +107,6 @@ def test_get_things_metajson(client):
     assert response.status_code == 200
 
 
-def test_get_things_identifier(client):
-    response = client.get('/' + UNAME + '/' + IDENTIFIER + '/things')
-    assert response.status_code == 200
-
-
 def test_get_things_bad_request(client):
     response = client.get('/' + UNAME + '/' + str(random.random()) + '/things')
     assert 'Bad request' in response.data

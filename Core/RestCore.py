@@ -179,7 +179,7 @@ def conflict(error):
 
 @app.route('/' + UNAME + '/<string:_key>/things', methods=['GET'])
 def get_things(_key):
-    if _key == IDENTIFIER or _key == JSONID or _key == METAJSONID:
+    if _key == JSONID or _key == METAJSONID:
         return jsonify({'Things': things.retrieve_all_col(str(_key))})
     else:
         abort(400)
@@ -267,5 +267,5 @@ def delete_thing():
 
 if __name__ == '__main__':
     _start_zeromq_pub()
-    # _start_zeromq_sub()
+    # _start_zerom_sub()
     app.run(host='localhost', port=8000, debug=False)

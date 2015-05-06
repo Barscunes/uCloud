@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 import requests
 import zmq
 import sys
+import getopt
 from select import select
 import json
 import ast
@@ -22,10 +23,13 @@ IDENTIFIER = GENERAL['IDENTIFIER']
 JSONID = GENERAL['JSONID']
 METAJSONID = GENERAL['METAJSONID']
 PORT_NAME = PORT['PORT_NAME']
+_B_data, _other_data = getopt.getopt(sys.argv[1:], "B:")
+print("RECIVED DATA: "+str(_B_data))
 try:
-    MQTT_SERVER_NAME = sys.argv[1]
+    MQTT_SERVER_NAME = _B_data[0][1]
 except:
     MQTT_SERVER_NAME = PORT['MQTT_SERVER_NAME']
+print("MQTT SERVER NAME: "+str(MQTT_SERVER_NAME))
 DB_COLUMN = {
     IDENTIFIER: 'identifier',
     JSONID: 'jsonid',

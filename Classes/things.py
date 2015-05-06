@@ -46,9 +46,9 @@ def _remove_list(_init, _new):
     return _init
 
 
-# ############### Retrieve everything of a column #############
+# ############### Retrieve every 'thing' of a column #############
 def retrieve_all_col(col):
-    """ Retrieve everything of a column """
+    """ Retrieve all the connected things of a column of the Data Base """
     _col_connected_things = []
     _connected_things = search_db()
 
@@ -255,7 +255,6 @@ def _thing_actions(_model, _new_value, _init_value, _key,
         except:
             pass
         _msg = {'model': _model, 'value': _new_value}
-        #_msg['instructions'].append({'model': _model, 'value': _new_value})
     return _msg
 
 # ################### Check if the payload is correct ####################
@@ -310,6 +309,11 @@ def delete(_del_thing):
 
 
 def find(_target_filter):
+    """ Find specific characteristics of the things.
+    It gets one parameter of type dictionary, in this format.
+    {'name of the characteristic': 'characteristic'}, for example:
+    {'name': 'thing'}"""
+
     if not _target_filter:
         _target_filter = {}
     _final_things = ()
@@ -346,18 +350,19 @@ def _apply_filter(_found, _target_filter):
 # ################### Check if any field is missing #######################
 
 
-def missing_data(_req_json, _msg_exception):
+def missing_data(_req_json, _columns_exceptions):
+    """ Checks if a given msg lacks of any DataBase column """
 
-    if (IDENTIFIER not in _req_json and
-            _msg_exception != IDENTIFIER):
+    if IDENTIFIER not in _req_json and IDENTIFIER not in _columns_exceptions:
+        _missing_column = '400' + IDENTIFIER
 
-        _msg = '400' + IDENTIFIER
-    elif JSONID not in _req_json and _msg_exception != JSONID:
-        _msg = '400' + JSONID
-    elif (METAJSONID not in _req_json and
-          _msg_exception != METAJSONID):
-        _msg = '400' + METAJSONID
+    elif JSONID not in _req_json and JSONID not in _columns_exceptions:
+        _missing_column = '400' + JSONID
+
+    elif METAJSONID not in _req_json and METAJSONID not in _columns_exceptions:
+        _missing_column = '400' + METAJSONID
+
     else:
-        _msg = None
+        _missing_column = None
 
-    return _msg
+    return _missing_column
