@@ -5,6 +5,6 @@
     'PORT_PUB': '5560',
     'PORT_SUB': ('5561',),
     'REST_TOPICS': ['post', 'delete'],
-    'MQTT_SERVER_NAME': 'localhost'
+    'BROKER_NAME': 'localhost'
 }
 

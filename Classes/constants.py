@@ -6,6 +6,7 @@ base_directory = '../Constants/'
 
 
 def retrieve(_file_direction):
+
     try:
         _text = open(base_directory + _file_direction, 'r')
         _constants = _text.read()

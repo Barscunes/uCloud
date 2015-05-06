@@ -1748,7 +1748,7 @@ div#notebook {
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[9]:
+In&nbsp;[12]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1773,7 +1773,7 @@ In&nbsp;[9]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[]:
+In&nbsp;[13]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1785,6 +1785,41 @@ In&nbsp;[]:
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Iniciamos-el-programa-que-mediante-serial-provee-un-cliente-MQTT-al-Arduino">Iniciamos el programa que mediante serial provee un cliente MQTT al Arduino<a class="anchor-link" href="#Iniciamos-el-programa-que-mediante-serial-provee-un-cliente-MQTT-al-Arduino">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[14]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="o">!</span>gnome-terminal -x python ../Things/PythonBridge/SimpleLedBridge.py
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="En-este-momento-el-dispositivo-SimpleLed-se-encuentra-registrado-en-uCloud">En este momento el dispositivo SimpleLed se encuentra registrado en uCloud<a class="anchor-link" href="#En-este-momento-el-dispositivo-SimpleLed-se-encuentra-registrado-en-uCloud">&#182;</a></h3>
+</div>
+</div>
+</div>
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1810,57 +1845,17 @@ In&nbsp;[]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Para-indicar-que-utilizaremos-el-broker-de-mosquitto-(o-cualquier-otro-que-no-se-encuentre-en-'localhost')-lo-indicamos-de-la-siguiente-forma.">Para indicar que utilizaremos el broker de mosquitto (o cualquier otro que no se encuentre en 'localhost') lo indicamos de la siguiente forma.<a class="anchor-link" href="#Para-indicar-que-utilizaremos-el-broker-de-mosquitto-(o-cualquier-otro-que-no-se-encuentre-en-'localhost')-lo-indicamos-de-la-siguiente-forma.">&#182;</a></h3>
+<h3 id="Para-indicar-que-utilizaremos-el-broker-de-mosquitto-(o-cualquier-otro-que-no-se-encuentre-en-'localhost')-debemos-modificar-el-valor-de-'BROKER_NAME'-que-se-encuentra-en-el-archivo-'/Constants/MQTTPort.txt',-se-recomienda-que-tambien-se-modifique-el-nombre-de-'UNAME'(por-defecto-es-'ucloud')-en-el-archivo-'/Constants/General.txt'-para-evitar-repeticiones-ya-que-se-encuentra-en-un-broker-p&#250;blico.">Para indicar que utilizaremos el broker de mosquitto (o cualquier otro que no se encuentre en 'localhost') debemos modificar el valor de 'BROKER_NAME' que se encuentra en el archivo '/Constants/MQTTPort.txt', se recomienda que tambien se modifique el nombre de 'UNAME'(por defecto es 'ucloud') en el archivo '/Constants/General.txt' para evitar repeticiones ya que se encuentra en un broker p&#250;blico.<a class="anchor-link" href="#Para-indicar-que-utilizaremos-el-broker-de-mosquitto-(o-cualquier-otro-que-no-se-encuentre-en-'localhost')-debemos-modificar-el-valor-de-'BROKER_NAME'-que-se-encuentra-en-el-archivo-'/Constants/MQTTPort.txt',-se-recomienda-que-tambien-se-modifique-el-nombre-de-'UNAME'(por-defecto-es-'ucloud')-en-el-archivo-'/Constants/General.txt'-para-evitar-repeticiones-ya-que-se-encuentra-en-un-broker-p&#250;blico.">&#182;</a></h3>
 </div>
 </div>
 </div>
 
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In&nbsp;[]:
-</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class="highlight"><pre><span class="o">!</span>gnome-terminal -x python ../Ports/MQTTPort.py <span class="s1">&#39;test.mosquitto.org&#39;</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Iniciamos-el-programa-que-mediante-serial-provee-un-cliente-MQTT-al-Arduino">Iniciamos el programa que mediante serial provee un cliente MQTT al Arduino<a class="anchor-link" href="#Iniciamos-el-programa-que-mediante-serial-provee-un-cliente-MQTT-al-Arduino">&#182;</a></h3>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In&nbsp;[2]:
-</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class="highlight"><pre><span class="o">!</span>gnome-terminal -x python ../Things/PythonBridge/SimpleLedBridge.py
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="En-este-momento-el-dispositivo-SimpleLed-se-encuentra-registrado-en-uCloud">En este momento el dispositivo SimpleLed se encuentra registrado en uCloud<a class="anchor-link" href="#En-este-momento-el-dispositivo-SimpleLed-se-encuentra-registrado-en-uCloud">&#182;</a></h3>
+<h3 id="En-el-caso-del-programa-de-python-que-utilizara-Arduino-se-debe-modificar-el-puerto-serial-para-que-coincida-con-el-puerto-en-el-que-este-conectado-y-el-Broker-desde-el-programa.">En el caso del programa de python que utilizara Arduino se debe modificar el puerto serial para que coincida con el puerto en el que este conectado y el Broker desde el programa.<a class="anchor-link" href="#En-el-caso-del-programa-de-python-que-utilizara-Arduino-se-debe-modificar-el-puerto-serial-para-que-coincida-con-el-puerto-en-el-que-este-conectado-y-el-Broker-desde-el-programa.">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -1935,7 +1930,7 @@ In&nbsp;[4]:
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[5]:
+In&nbsp;[15]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2006,7 +2001,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[5]:
+In&nbsp;[6]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2184,7 +2179,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[6]:
+In&nbsp;[7]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2280,7 +2275,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[6]:
+In&nbsp;[16]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2339,7 +2334,7 @@ Code: 202
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[8]:
+In&nbsp;[17]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2420,7 +2415,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[9]:
+In&nbsp;[18]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2474,7 +2469,7 @@ Code: 201
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[7]:
+In&nbsp;[19]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2523,7 +2518,7 @@ Code: 202
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[11]:
+In&nbsp;[20]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2631,7 +2626,7 @@ Code: 200
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[8]:
+In&nbsp;[21]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2653,11 +2648,11 @@ In&nbsp;[8]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-Code: 404
+Code: 201
 
  MSG:
 {
-  &quot;error&quot;: &quot;Not found&quot;
+  &quot;Thing&quot;: &quot;Deleted&quot;
 }
 
 </pre>

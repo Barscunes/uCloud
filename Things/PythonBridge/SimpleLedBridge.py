@@ -1,6 +1,9 @@
 import paho.mqtt.client as mqtt
 import serial
 
+BROKER_NAME = 'localhost'
+SERIAL_PORT = "/dev/ttyACM0"
+
 
 def _on_connect(_client, _userdata, _msg):
 
@@ -35,15 +38,14 @@ def _on_message(_client, _userdata, _msg):
 def _start_mqtt_client():
     mqtt_client.on_connect = _on_connect
     mqtt_client.on_message = _on_message
-    mqtt_client.connect('0.0.0.0')
+    mqtt_client.connect(BROKER_NAME)
 
 
 mqtt_client = mqtt.Client()
 msgs_power_on = []
 msgs_power_off = []
 _start_mqtt_client()
-port = "/dev/ttyACM0"
-msg_to_arduino = serial.Serial(port, 9600)
+msg_to_arduino = serial.Serial(SERIAL_PORT, 9600)
 msg_to_arduino.flushInput()
 
 led_json_model = {
